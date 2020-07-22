@@ -1,5 +1,5 @@
 (*
-Export Playlists for iTunes
+Export Playlists for Apple Music
 Written by Daniel Petrescu
 https://github.com/dpet23
 *)
@@ -51,14 +51,14 @@ set illegalCharacters1 to {"~", "?", "!", "@", "#", "$", "%", "&", "*", "=", "+"
 set illegalCharacters2 to {"'", "\"", ",", "`", "^", "˘"}
 
 with timeout of 60 * 60 * 24 seconds -- (timeout of 24 hours for many huge playlists, slow computer/network, etc.)
-	tell application "iTunes"
+	tell application "Music"
 		
-		-- No need to check if iTunes is open. The "tell application iTunes" command opens iTunes if it's closed.
+		-- No need to check if Apple Music is open. The "tell application Music" command opens Apple Music if it's closed.
 		
 		-- SAVE DELIMITER
 		set originalDelimiter to AppleScript's text item delimiters
 		
-		-- GET ALL PLAYLISTS FROM ITUNES
+		-- GET ALL PLAYLISTS FROM APPLE MUSIC
 		try
 			set all_specialps to (get name of every user playlist whose special kind is not none)
 			set all_userps to (get name of every user playlist whose smart is false and special kind is none)
@@ -276,7 +276,7 @@ with timeout of 60 * 60 * 24 seconds -- (timeout of 24 hours for many huge playl
 		if (folderChoice = "Same folder") then
 			
 			-- MAKE ROOT FOLDER
-			set newName to "iTunes Export"
+			set newName to "Apple Music Export"
 			set rootPathExists to my folder_exists(folderPathPOSIX, newName, "d")
 			if not rootPathExists then
 				set rootPath to my make_dir(folderPathPOSIX, newName)
@@ -674,12 +674,12 @@ end arabic2roman
 
 
 (*
-  DESCRIPTION: Get the metadata of a track from iTunes.
-  @param Track thisTrack = a reference to an iTunes track
+  DESCRIPTION: Get the metadata of a track from Apple Music.
+  @param Track thisTrack = a reference to an Apple Music track
   @return List - the track's metadata
 *)
 on get_track_details(thisTrack)
-	tell application "iTunes"
+	tell application "Music"
 		
 		-- GET NAME/WORK
 		if (nameChoice = true) then
@@ -764,7 +764,7 @@ end get_track_details
 
 
 (*
-  DESCRIPTION: Get a specific piece of metadata from the list of extracted metadata for a track from iTunes.
+  DESCRIPTION: Get a specific piece of metadata from the list of extracted metadata for a track from Apple Music.
   @param Str folderStructureItem = the attribute to search for
   @param List trackAttributes = the list of extracted metadata for the track
   @return Str - the value of the attribute
